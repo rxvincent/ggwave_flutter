@@ -135,6 +135,7 @@ void AudioOutputCallback(void * inUserData,
             AudioQueueEnqueueBuffer (stateInp.queue, stateInp.buffers[i], 0, NULL);
         }
 
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         stateInp.isCapturing = true;
         status = AudioQueueStart(stateInp.queue, NULL);
         if (status == 0) {
@@ -207,14 +208,12 @@ void AudioOutputCallback(void * inUserData,
             AudioQueueAllocateBuffer(stateOut.queue, NUM_BYTES_PER_BUFFER, &stateOut.buffers[i]);
             AudioOutputCallback(&stateOut, stateOut.queue, stateOut.buffers[i]);
         }
-
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
         status = AudioQueueStart(stateOut.queue, NULL);
         if (status == 0) {
             self.onStatusChanged(@"onPlaybackStart");
         }
     }
-    
-    
 
     if (status != 0) {
         [self stopPlayback];
