@@ -34,8 +34,8 @@ class MethodChannelGGWaveFlutter extends GGWaveFlutterPlatform {
   late Function() _onCaptureStop;
 
   @override
-  Future<void> togglePlayback(String message) async {
-    await methodChannel.invokeMethod('togglePlayback', [message]);
+  Future<void> togglePlayback(String message, int mode, int volume) async {
+    await methodChannel.invokeMethod('togglePlayback', [message, mode, volume]);
   }
 
   @override

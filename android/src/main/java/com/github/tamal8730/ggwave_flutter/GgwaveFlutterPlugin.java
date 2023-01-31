@@ -44,7 +44,9 @@ public class GgwaveFlutterPlugin implements FlutterPlugin, MethodCallHandler {
     if (call.method.equals("togglePlayback")) {
       ArrayList arguments = (ArrayList) call.arguments;
       String message = (String) arguments.get(0);
-      togglePlayback(message);
+      int mode = (int)arguments.get(1);
+      int volume = (int)arguments.get(2);
+      togglePlayback(message, mode, volume);
       result.success(message);
     } else if(call.method.equals("toggleCapture")){
       toggleCapture();
@@ -71,8 +73,8 @@ public class GgwaveFlutterPlugin implements FlutterPlugin, MethodCallHandler {
     }
   }
 
-  private void togglePlayback(String message){
-    ggWave.togglePlayback(message, new GGWave.AudioPlaybackCallback() {
+  private void togglePlayback(String message, int mode, int volume){
+    ggWave.togglePlayback(message, mode, volume, new GGWave.AudioPlaybackCallback() {
       @Override
       public void onPlaybackStart() {
         channel.invokeMethod("onPlaybackStart", null);

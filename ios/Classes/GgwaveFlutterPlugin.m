@@ -44,7 +44,7 @@
 - (void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     
     if ([call.method isEqualToString:@"togglePlayback"]) {
-        [ggWave togglePlaybackWithMessage:call.arguments[0]];
+        [ggWave togglePlaybackWithMessage:call.arguments[0] mode:[call.arguments[1] intValue]  volume:[call.arguments[2] intValue]];
     } else if ([call.method isEqualToString:@"toggleCapture"]) {
         [ggWave toggleCapture];
     } else {

@@ -43,6 +43,6 @@ typedef struct
 
 - (void)setup;
 - (void)toggleCapture;
-- (void)togglePlaybackWithMessage:(NSString *)message;
+- (void)togglePlaybackWithMessage:(NSString *)message mode:(int)mode volume:(int)volume ;
 
 @end

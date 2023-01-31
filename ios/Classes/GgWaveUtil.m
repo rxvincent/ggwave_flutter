@@ -163,7 +163,7 @@ void AudioOutputCallback(void * inUserData,
 }
 
 
-- (void)togglePlaybackWithMessage:(NSString *)message {
+- (void)togglePlaybackWithMessage:(NSString *)message mode:(int)mode volume:(int)volume {
     if (stateOut.isPlaying) {
         [self stopPlayback];
         return;
@@ -178,7 +178,7 @@ void AudioOutputCallback(void * inUserData,
 
         stateOut.waveform = [NSMutableData dataWithLength:sizeof(char)*n];
 
-        const int ret = ggwave_encode(stateOut.ggwaveId, payload, len, GGWAVE_PROTOCOL_AUDIBLE_FAST, 10, [stateOut.waveform mutableBytes], 0);
+        const int ret = ggwave_encode(stateOut.ggwaveId, payload, len, mode, volume, [stateOut.waveform mutableBytes], 0);
 
         if (ret > n) {
             printf("failed to encode the message '%s', n = %d, ret = %d\n", payload, n, ret);

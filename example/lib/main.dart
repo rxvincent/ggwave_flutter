@@ -143,8 +143,10 @@ class _MyAppState extends State<MyApp> {
                   ),
                   onPressed: _isListening || !_sendButtonEnabled
                       ? null
-                      : () => _ggwave
-                          .togglePlayback(_messageEditingController.text),
+                      : () => _ggwave.togglePlayback(
+                          message: _messageEditingController.text,
+                          mode: GGWaveProtocolMode.ULTRASOUND_FASTEST,
+                          volume: 20),
                   child: Text(_sendButtonLabel),
                 ),
                 const SizedBox(height: 16),

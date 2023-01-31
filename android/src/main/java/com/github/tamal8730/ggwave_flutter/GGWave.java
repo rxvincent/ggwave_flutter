@@ -43,7 +43,7 @@ public class GGWave {
     // Native interface:
     private native void initNative();
     private native void processCaptureData(short[] data);
-    private native void sendMessage(String message);
+    private native void sendMessage(String message, int mode, int volume);
 
     // Native callbacks:
     private void onNativeReceivedMessage(byte[] c_message) {
@@ -94,10 +94,10 @@ public class GGWave {
         }
     }
 
-    public void togglePlayback(String message, AudioPlaybackCallback audioPlaybackCallback){
+    public void togglePlayback(String message, int mode, int volume, AudioPlaybackCallback audioPlaybackCallback){
 
         if (mPlaybackThread == null || !mPlaybackThread.playing()) {
-            sendMessage(message);
+            sendMessage(message, mode, volume);
             mPlaybackThread.startPlayback();
             audioPlaybackCallback.onPlaybackStart();
         } else {

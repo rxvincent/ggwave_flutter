@@ -76,7 +76,7 @@ abstract class GGWaveFlutterPlatform extends PlatformInterface {
 
   Future<dynamic> ggwaveMethodHandler(MethodCall methodCall);
 
-  Future<void> togglePlayback(String message);
+  Future<void> togglePlayback(String message, int mode, int volume);
 
   Future<void> toggleCapture();
 }

@@ -11,8 +11,10 @@ class GGWaveFlutter {
     GGWaveFlutterPlatform.instance.setOnCaptureStopListener(callbacks.onCaptureStop);
   }
 
-  Future<void> togglePlayback(String message) async {
-    await GGWaveFlutterPlatform.instance.togglePlayback(message);
+  Future<void> togglePlayback(
+      {required String message, required GGWaveProtocolMode mode, required int volume,}) async {
+    final modeIndex = GGWaveProtocolMode.values.indexOf(mode);
+    await GGWaveFlutterPlatform.instance.togglePlayback(message, modeIndex, volume);
   }
 
   Future<void> toggleCapture() async {
@@ -36,4 +38,19 @@ class GGWaveFlutterCallbacks {
     required this.onCaptureStart,
     required this.onCaptureStop,
   });
+}
+
+enum GGWaveProtocolMode {
+  AUDIBLE_NORMAL,
+  AUDIBLE_FAST,
+  AUDIBLE_FASTEST,
+  ULTRASOUND_NORMAL,
+  ULTRASOUND_FAST,
+  ULTRASOUND_FASTEST,
+  DT_NORMAL,
+  DT_FAST,
+  DT_FASTEST,
+  MT_NORMAL,
+  MT_FAST,
+  MT_FASTEST,
 }
