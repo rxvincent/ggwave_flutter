@@ -24,4 +24,5 @@ flutter:
       android:
         package: com.github.tamal8730.ggwave_flutter
         pluginClass: GgwaveFlutterPlugin
-
+      ios:
+        pluginClass: GgwaveFlutterPlugin
