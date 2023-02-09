@@ -135,7 +135,7 @@ void AudioOutputCallback(void * inUserData,
             AudioQueueEnqueueBuffer (stateInp.queue, stateInp.buffers[i], 0, NULL);
         }
 
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
         stateInp.isCapturing = true;
         status = AudioQueueStart(stateInp.queue, NULL);
         if (status == 0) {
@@ -175,7 +175,7 @@ void AudioOutputCallback(void * inUserData,
         const char * payload = [message cStringUsingEncoding:NSUTF8StringEncoding];
         const int len = (int) strlen(payload);
 
-        const int n = ggwave_encode(stateOut.ggwaveId, payload, len, GGWAVE_PROTOCOL_AUDIBLE_FAST, 10, NULL, 1);
+        const int n = ggwave_encode(stateOut.ggwaveId, payload, len, mode, volume, NULL, 1);
 
         stateOut.waveform = [NSMutableData dataWithLength:sizeof(char)*n];
 
@@ -208,7 +208,7 @@ void AudioOutputCallback(void * inUserData,
             AudioQueueAllocateBuffer(stateOut.queue, NUM_BYTES_PER_BUFFER, &stateOut.buffers[i]);
             AudioOutputCallback(&stateOut, stateOut.queue, stateOut.buffers[i]);
         }
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
         status = AudioQueueStart(stateOut.queue, NULL);
         if (status == 0) {
             self.onStatusChanged(@"onPlaybackStart");
